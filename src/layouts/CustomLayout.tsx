@@ -39,7 +39,7 @@ const CustomLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (session?.user && myCollections?.length <= 0) fetchCollections();
-  }, [myCollections, session?.user]);
+  }, [session?.user]);
 
   return children;
 };

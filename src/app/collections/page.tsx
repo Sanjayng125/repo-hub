@@ -14,14 +14,10 @@ const CollectionsPage = () => {
   const { isLoading, error } = useQuery({
     queryKey: ["mycollections"],
     queryFn: () => {
-      return fetch("/api/user/collection")
+      fetch("/api/user/collection")
         .then((res) => res.json())
         .then((data) => {
-          if (data.success) {
-            setMyCollections(data.collections);
-          } else {
-            throw new Error(data.message);
-          }
+          setMyCollections(data.collections);
           return data;
         });
     },
@@ -42,6 +38,11 @@ const CollectionsPage = () => {
         <div className="w-full flex flex-col gap-2">
           <h1 className="text-xl font-semibold">My Collections</h1>
           <hr />
+          {!isLoading && myCollections.length <= 0 && (
+            <h1 className="text-lg text-center font-semibold">
+              No Collections Yet!
+            </h1>
+          )}
           {myCollections?.length > 0 &&
             myCollections.map((collection, i) => (
               <Collection collection={collection} key={i} />
