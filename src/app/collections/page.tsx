@@ -11,7 +11,7 @@ const CollectionsPage = () => {
   const { data: session, status } = useSession();
   const { setMyCollections, myCollections } = useMyStore();
 
-  const { isLoading, error } = useQuery({
+  const { isLoading, error, isFetching } = useQuery({
     queryKey: ["mycollections"],
     queryFn: () => {
       fetch("/api/user/collection")
@@ -38,7 +38,7 @@ const CollectionsPage = () => {
         <div className="w-full flex flex-col gap-2">
           <h1 className="text-xl font-semibold">My Collections</h1>
           <hr />
-          {!isLoading && myCollections.length <= 0 && (
+          {!isLoading && !isFetching && myCollections.length <= 0 && (
             <h1 className="text-lg text-center font-semibold">
               No Collections Yet!
             </h1>

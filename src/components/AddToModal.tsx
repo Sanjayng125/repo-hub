@@ -12,15 +12,18 @@ import { useMyStore } from "@/context/store/ZustandStore";
 import { useToast } from "./ui/use-toast";
 import { useState } from "react";
 import { RepoProps } from "@/types";
-import { PlusSquare } from "lucide-react";
+import { Loader, PlusSquare } from "lucide-react";
+import { useQueryClient } from "react-query";
 
 export function AddToModal({ repo }: { repo: RepoProps }) {
   const { myCollections } = useMyStore();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const handleRepoAdd = async (collectionId: string) => {
     try {
+      setLoading(true);
       const res = await fetch(`/api/user/collection/repo`, {
         method: "POST",
         headers: {
@@ -38,6 +41,10 @@ export function AddToModal({ repo }: { repo: RepoProps }) {
       });
 
       const data = await res.json();
+
+      if (data.success) {
+        queryClient.invalidateQueries(["mycollections"]);
+      }
 
       toast({
         description: data.message,
@@ -84,9 +91,10 @@ export function AddToModal({ repo }: { repo: RepoProps }) {
                 disabled={loading}
                 variant={"outline"}
                 onClick={() => handleRepoAdd(collection._id)}
-                className="w-full bg-transparent hover:bg-white hover:text-black flex justify-start disabled:opacity-50"
+                className="w-full bg-transparent hover:bg-white hover:text-black flex justify-start items-center gap-1 disabled:opacity-50"
               >
                 {collection.name}
+                {loading && <Loader className="ml-2 w-4 h-4 animate-spin" />}
               </Button>
             ))
           ) : (

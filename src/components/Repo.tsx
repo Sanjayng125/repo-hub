@@ -61,6 +61,7 @@ const Repo = ({
 
       if (data.success) {
         queryClient.invalidateQueries({ queryKey: ["mycollectionrepos"] });
+        queryClient.invalidateQueries({ queryKey: ["mycollections"] });
       }
 
       toast({
