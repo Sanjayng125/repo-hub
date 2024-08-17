@@ -68,11 +68,11 @@ export function AddToModal({ repo }: { repo: RepoProps }) {
       <DialogTrigger asChild className="p-0">
         <button
           // size={"sm"}
-          className="bg-yellow-500 max-sm:text-[8px] text-xs 2xl:text-sm font-semibold hover:bg-white hover:text-black flex items-center gap-1 text-white rounded-xl p-1 disabled:opacity-70"
+          className="bg-yellow-500 text-xs 2xl:text-sm font-semibold hover:bg-white hover:text-black flex items-center gap-1 text-white rounded-xl p-1 disabled:opacity-70"
         >
           <span>Add to</span>
           <span>
-            <PlusSquare className="max-sm:size-2 size-4 2xl:size-6" />
+            <PlusSquare className="max-sm:size-3 size-4 2xl:size-6" />
           </span>
         </button>
       </DialogTrigger>

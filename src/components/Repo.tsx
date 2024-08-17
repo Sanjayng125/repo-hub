@@ -132,7 +132,7 @@ const Repo = ({
               href={`/search/${
                 addToBtn ? repo?.owner?.login : repo.repoOwnerUsername
               }`}
-              className="max-sm:text-sm text-xl 2xl:text-2xl font-semibold hover:underline"
+              className="max-sm:text-lg text-xl 2xl:text-2xl font-semibold hover:underline"
             >
               {repo.name || repo.repoName}
             </Link>
@@ -141,7 +141,7 @@ const Repo = ({
             <button
               onClick={() => handleCloneUrlCopy(repo.clone_url)}
               // size={"sm"}
-              className={`max-sm:text-[8px] text-xs 2xl:text-sm font-semibold hover:bg-white hover:text-black flex items-center gap-1 text-white rounded-xl p-1 disabled:opacity-70 ${
+              className={`text-xs 2xl:text-sm font-semibold hover:bg-white hover:text-black flex items-center gap-1 text-white rounded-xl p-1 disabled:opacity-70 ${
                 copied ? "bg-green-500" : "bg-blue-900"
               }`}
               disabled={copied}
@@ -149,9 +149,9 @@ const Repo = ({
               <span>{copied ? "Copied" : "Clone"}</span>
               <span>
                 {copied ? (
-                  <Check className="max-sm:size-2 size-4 2xl:size-6" />
+                  <Check className="max-sm:size-3 size-4 2xl:size-6" />
                 ) : (
-                  <BiCopy className="max-sm:size-2 size-4 2xl:size-6" />
+                  <BiCopy className="max-sm:size-3 size-4 2xl:size-6" />
                 )}
               </span>
             </button>

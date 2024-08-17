@@ -62,14 +62,16 @@ const Search = ({ params }: { params: { username: string } }) => {
             />
             <div className="w-full break-all">
               {userProfile.name && (
-                <p className="text-3xl max-[390px]:text-2xl font-semibold">
+                <p className="text-2xl max-[390px]:text-xl sm:text-3xl font-semibold">
                   {userProfile.name}
                 </p>
               )}
               <p className="text-xl max-[368px]:text-lg text-gray-600">
                 {userProfile.login}
               </p>
-              {userProfile.bio && <p className="mt-5">{userProfile?.bio}</p>}
+              {userProfile.bio && (
+                <p className="mt-5 max-sm:text-sm">{userProfile?.bio}</p>
+              )}
             </div>
           </div>
           <p className="flex items-center gap-1 my-1">

@@ -11,7 +11,6 @@ const SearchBar = () => {
 
   useEffect(() => {
     if (
-      search === "" &&
       pathname.startsWith("/search/") &&
       typeof pathname.split("/").pop() === "string" &&
       pathname.split("/").pop() !== ""

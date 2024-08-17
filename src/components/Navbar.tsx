@@ -11,9 +11,20 @@ const Navbar = async () => {
 
   return (
     <div className="bg-slate-800 p-3 flex items-center justify-between gap-4 relative">
-      <h1 className="text-xl sm:text-2xl font-semibold flex items-center gap-2">
-        <FaGithub /> RepoHub
-      </h1>
+      <Link
+        href={"/"}
+        className="text-xl sm:text-2xl font-semibold flex items-center gap-1"
+      >
+        <Image
+          src={"/img-512.png"}
+          alt="logo"
+          width={32}
+          height={32}
+          className="w-10 h-10"
+          quality={100}
+        />
+        <p>RepoHub</p>
+      </Link>
       <SearchBar />
       <div className="flex items-center gap-2">
         <Link href={"/"} className="flex items-center gap-1">

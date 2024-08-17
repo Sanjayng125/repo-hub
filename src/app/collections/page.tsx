@@ -38,7 +38,7 @@ const CollectionsPage = () => {
         <div className="w-full flex flex-col gap-2">
           <h1 className="text-xl font-semibold">My Collections</h1>
           <hr />
-          {!isLoading && !isFetching && myCollections.length <= 0 && (
+          {!isLoading && !isFetching && myCollections?.length <= 0 && (
             <h1 className="text-lg text-center font-semibold">
               No Collections Yet!
             </h1>
