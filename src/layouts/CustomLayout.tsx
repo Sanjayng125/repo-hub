@@ -4,6 +4,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useMyStore } from "@/context/store/ZustandStore";
 import { useSession } from "next-auth/react";
 import React, { useEffect } from "react";
+import { useQuery } from "react-query";
 
 const CustomLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
@@ -11,35 +12,34 @@ const CustomLayout = ({ children }: { children: React.ReactNode }) => {
   const { toast } = useToast();
 
   const fetchCollections = async () => {
-    try {
-      await fetch("/api/user/collection")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            setMyCollections(data.collections);
-          } else {
-            toast({
-              description: data?.message ?? "Something went wrong!",
-              variant: "destructive",
-            });
-          }
-        });
-    } catch (error) {
-      console.log(error);
-      if (error instanceof Error) {
-        toast({
-          description: error?.message ?? "Something went wrong!",
-          variant: "destructive",
-        });
-      }
-    } finally {
-      setIsLoading(false);
+    setIsLoading(true);
+    const res = await fetch("/api/user/collection");
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data?.message || "Something went wrong!");
     }
+
+    return data;
   };
 
-  useEffect(() => {
-    if (session?.user && myCollections?.length <= 0) fetchCollections();
-  }, [session?.user]);
+  useQuery({
+    queryKey: ["mycollections"],
+    queryFn: fetchCollections,
+    enabled: !!session?.user, // Run query only if session exists
+    onSuccess: (data) => {
+      setMyCollections(data.collections);
+    },
+    onSettled: () => {
+      setIsLoading(false);
+    },
+    onError: (error: Error) => {
+      toast({
+        description: error?.message ?? "Something went wrong!",
+        variant: "destructive",
+      });
+    },
+  });
 
   return children;
 };

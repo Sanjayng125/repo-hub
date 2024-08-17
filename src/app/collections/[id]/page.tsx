@@ -12,21 +12,29 @@ const Collection = ({ params }: { params: { id: string } }) => {
   const { toast } = useToast();
 
   const { isLoading: loading } = useQuery({
-    queryKey: ["mycollectionrepos"],
-    queryFn: () => {
-      return fetch(`/api/user/collection/repo/${params.id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            setRepos(data.repos);
-          } else {
-            toast({
-              description: data?.message ?? "Something went wrong!",
-              variant: "destructive",
-            });
-          }
-          return data;
+    queryKey: ["mycollectionrepos", params.id],
+    queryFn: () =>
+      fetch(`/api/user/collection/repo/${params.id}`).then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      }),
+    onSuccess: (data) => {
+      if (data.success) {
+        setRepos(data.repos);
+      } else {
+        toast({
+          description: data?.message ?? "Something went wrong!",
+          variant: "destructive",
         });
+      }
+    },
+    onError: (error: Error) => {
+      toast({
+        description: error?.message ?? "Something went wrong!",
+        variant: "destructive",
+      });
     },
   });
 

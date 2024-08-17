@@ -22,10 +22,14 @@ const HomePage = () => {
   const { isLoading } = useQuery({
     queryKey: ["repos"],
     queryFn: () => {
-      return getRepos({ query, sortBy, sortOrder }).then((res) => {
-        setExploreRepos(res.repos?.items);
-        return res;
-      });
+      const res = getRepos({ query, sortBy, sortOrder });
+      return res;
+    },
+    onSuccess: (data: any) => {
+      setExploreRepos(data.repos?.items);
+    },
+    onSettled: () => {
+      setIsLoading(false);
     },
     staleTime: 1000 * 60 * 10, // 10 minutes
   });

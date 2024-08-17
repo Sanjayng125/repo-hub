@@ -22,10 +22,11 @@ const Profile = () => {
   const { isLoading } = useQuery({
     queryKey: ["myrepos"],
     queryFn: () => {
-      return getMyRepos().then((res) => {
-        setMyRepos(res.repos);
-        return res;
-      });
+      const res = getMyRepos();
+      return res;
+    },
+    onSuccess: (data: any) => {
+      setMyRepos(data.repos);
     },
     staleTime: 1000 * 60 * 10, // 10 minutes
   });

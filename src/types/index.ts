@@ -28,6 +28,7 @@ export interface RepoProps {
     repoOwnerUsername?: string
     repoOwnerAvatar?: string
     repoName?: string
+    collectionId?: string
 }
 
 export interface collectionProps {

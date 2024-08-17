@@ -60,7 +60,9 @@ const Repo = ({
       const data = await res.json();
 
       if (data.success) {
-        queryClient.invalidateQueries({ queryKey: ["mycollectionrepos"] });
+        queryClient.invalidateQueries({
+          queryKey: ["mycollectionrepos", repo.collectionId],
+        });
         queryClient.invalidateQueries({ queryKey: ["mycollections"] });
       }
 
@@ -161,12 +163,12 @@ const Repo = ({
             ) : (
               <button
                 onClick={() => handleRepoRemove(repo._id)}
-                className={`max-sm:text-[8px] text-xs 2xl:text-sm font-semibold bg-red-500 hover:bg-white hover:text-black flex items-center gap-1 text-white rounded-xl p-1 disabled:opacity-70`}
+                className={`text-xs 2xl:text-sm font-semibold bg-red-500 hover:bg-white hover:text-black flex items-center gap-1 text-white rounded-xl p-1 disabled:opacity-70`}
                 disabled={loading}
               >
                 <span>{loading ? "Removing" : "Remove"}</span>
                 <span>
-                  <MinusSquare className="max-sm:size-2 size-4 2xl:size-6" />
+                  <MinusSquare className="max-sm:size-3 size-4 2xl:size-6" />
                 </span>
               </button>
             )}
